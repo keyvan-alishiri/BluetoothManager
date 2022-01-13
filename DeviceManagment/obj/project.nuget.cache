@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "dgSpecHash": "A/wt6UDGGYCK7p82sv7sCGgnrLKAwxurDVH5kOH27oNCH1fKOoI3uo5tNU56Cm4ZsJH+7y7wBdfyxzsQu/h1VA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\keyvan\\Desktop\\DeviceManagment\\DeviceManagment\\DeviceManagment.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\keyvan\\.nuget\\packages\\controlzex\\4.4.0\\controlzex.4.4.0.nupkg.sha512",
+    "C:\\Users\\keyvan\\.nuget\\packages\\jetbrains.annotations\\2021.3.0\\jetbrains.annotations.2021.3.0.nupkg.sha512",
+    "C:\\Users\\keyvan\\.nuget\\packages\\mahapps.metro\\2.4.9\\mahapps.metro.2.4.9.nupkg.sha512",
+    "C:\\Users\\keyvan\\.nuget\\packages\\mahapps.metro.iconpacks\\4.10.0\\mahapps.metro.iconpacks.4.10.0.nupkg.sha512",
+    "C:\\Users\\keyvan\\.nuget\\packages\\microsoft.windows.sdk.contracts\\10.0.22000.196\\microsoft.windows.sdk.contracts.10.0.22000.196.nupkg.sha512",
+    "C:\\Users\\keyvan\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.19\\microsoft.xaml.behaviors.wpf.1.1.19.nupkg.sha512",
+    "C:\\Users\\keyvan\\.nuget\\packages\\system.runtime.interopservices.windowsruntime\\4.3.0\\system.runtime.interopservices.windowsruntime.4.3.0.nupkg.sha512",
+    "C:\\Users\\keyvan\\.nuget\\packages\\system.runtime.windowsruntime\\4.6.0\\system.runtime.windowsruntime.4.6.0.nupkg.sha512",
+    "C:\\Users\\keyvan\\.nuget\\packages\\system.runtime.windowsruntime.ui.xaml\\4.6.0\\system.runtime.windowsruntime.ui.xaml.4.6.0.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,128 @@
+﻿<mah:MetroWindow x:Class="DeviceManagment.MainWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:core="clr-namespace:DeviceManagment"
+                 xmlns:views="clr-namespace:DeviceManagment.Views"
+                 xmlns:viewModels="clr-namespace:DeviceManagment.ViewModels"
+                 xmlns:localViews="clr-namespace:DeviceManagment.Views"
+                 Title="Device Manager"
+                 Width="525"
+                 Height="350"
+                 WindowStartupLocation="CenterScreen"
+                 WindowTransitionsEnabled="False"
+                 mc:Ignorable="d"
+				 WindowState="Maximized"
+				 Activated="MetroWindow_Activated">
+
+    <Window.DataContext>
+        <viewModels:MainViewModel />
+    </Window.DataContext>
+
+    <Grid>
+	  
+	  <Grid.RowDefinitions>
+		 <RowDefinition Height="*"/>
+		 <RowDefinition Height="60"/>
+	  </Grid.RowDefinitions>
+	  <Grid.Resources>
+
+            <core:SelectedItemToContentConverter x:Key="SelectedItemToContentConverter" />
+
+            <!--  this is the template for the items (options too)  -->
+            <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type viewModels:MenuItemViewModel}">
+                <Grid x:Name="RootGrid"
+                      Height="48"
+                      Background="Transparent">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type mah:HamburgerMenu}}, Path=CompactPaneLength}" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <ContentControl Grid.Column="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Content="{Binding Icon}"
+                                    Focusable="False" />
+                    <TextBlock Grid.Column="1"
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               Text="{Binding Label}" />
+                </Grid>
+                <DataTemplate.Triggers>
+                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type mah:HamburgerMenu}}, Path=IsPaneOpen}" Value="False">
+                        <Setter TargetName="RootGrid" Property="ToolTip" Value="{Binding ToolTip, Mode=OneWay}" />
+                    </DataTrigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+
+            <!--  these are the templates for the view models  -->
+            <DataTemplate  DataType="{x:Type viewModels:PrinterViewModel}" >
+                <views:PrinterView DataContext="{Binding}" Grid.Row="0" />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:CustomViewModel}">
+			<views:CustomPairingView DataContext="{Binding}"  Grid.Row="0" />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:BasicViewModel}">
+			<views:BasicParingView DataContext="{Binding}"  Grid.Row="0"  />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:SettingsViewModel}">
+			<localViews:AppSettingsView DataContext="{Binding}"  Grid.Row="0"/>
+            </DataTemplate>
+		 
+		 
+
+	  </Grid.Resources>
+
+        <mah:HamburgerMenu x:Name="HamburgerMenuControl"
+                           DisplayMode="CompactInline"
+						   
+                           IsPaneOpen="True"
+                           ItemTemplate="{StaticResource MenuItemTemplate}"
+                           ItemsSource="{Binding MenuItems}"
+                           OptionsItemTemplate="{StaticResource MenuItemTemplate}"
+                           OptionsItemsSource="{Binding MenuOptionItems}"
+                           SelectedIndex="0"
+						  Grid.RowSpan="2"
+						   >
+
+            <!--  select the ViewModel of the selected item (options item)  -->
+            <mah:HamburgerMenu.Content >
+			
+			<MultiBinding Converter="{StaticResource SelectedItemToContentConverter}">
+                    <Binding FallbackValue="{x:Null}"
+                             Mode="OneWay"
+                             Path="SelectedItem"
+                             RelativeSource="{RelativeSource Self}" />
+                    <Binding FallbackValue="{x:Null}"
+                             Mode="OneWay"
+                             Path="SelectedOptionsItem"
+                             RelativeSource="{RelativeSource Self}" />
+                </MultiBinding>
+			
+			   
+			
+		 </mah:HamburgerMenu.Content>
+
+        </mah:HamburgerMenu>
+	  <Grid Grid.Row="1">
+		 <Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="*" />
+		 </Grid.ColumnDefinitions>
+		 <StackPanel x:Name="StatusPanel" Orientation="Vertical"  Grid.ColumnSpan="2"   >
+			<TextBlock x:Name="StatusLabel" Margin="5,0,0,5" TextWrapping="Wrap" Text="Status:" />
+			<Border x:Name="StatusBorder" Margin="0,0,0,0">
+			   <ScrollViewer   VerticalScrollBarVisibility="Auto" MaxHeight="200">
+				  <!-- Use LiveSetting to enable screen readers to announce the status update. -->
+				  <TextBlock x:Name="StatusBlock" FontWeight="Bold" AutomationProperties.LiveSetting="Assertive"
+                                   MaxWidth="{Binding ElementName=Splitter, Path=ActualWidth}" Margin="10,10,10,20" TextWrapping="Wrap"  />
+			   </ScrollViewer>
+			</Border>
+		 </StackPanel>
+	  </Grid>
+	  
+   </Grid>
+  
+</mah:MetroWindow>
